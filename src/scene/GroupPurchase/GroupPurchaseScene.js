@@ -9,7 +9,6 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, InteractionManager } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 import SpacingView from '../../widget/SpacingView'
 import RefreshListView, { RefreshState } from '../../widget/RefreshListView'
@@ -24,6 +23,11 @@ import NavigationItem from '../../widget/NavigationItem'
 
 // create a component
 class GroupPurchaseScene extends Component {
+
+    static navigationOptions = ({ navigation }) => ({
+        headerTitle: '团购详情',
+        headerStyle: { backgroundColor: 'white' },
+    });
 
     state: {
         info:Object,
@@ -52,9 +56,9 @@ class GroupPurchaseScene extends Component {
             />
         )
 
-        Actions.refresh({
-            renderRightButton: () => rightButton,
-        })
+        // Actions.refresh({
+        //     renderRightButton: () => rightButton,
+        // })
 
         InteractionManager.runAfterInteractions(() => {
             this.refs.listView.startHeaderRefreshing();
@@ -72,7 +76,7 @@ class GroupPurchaseScene extends Component {
                     renderRow={(rowData) =>
                         <GroupPurchaseCell
                             info={rowData}
-                            onPress={() => Actions.groupPurchase({ info: rowData })}
+                            onPress={() => this.props.navigation.navigate('GroupPurchase', {info: rowData})}
                         />
                     }
                     onHeaderRefresh={() => this.requestData()}
@@ -82,7 +86,7 @@ class GroupPurchaseScene extends Component {
     }
 
     renderHeader() {
-        let info = this.props.info
+        let info = this.props.navigation.state.params.info
 
         return (
             <View>
@@ -130,7 +134,8 @@ class GroupPurchaseScene extends Component {
     }
 
     requestRecommend() {
-        fetch(recommendUrlWithId(this.props.info.id))
+        let info = this.props.navigation.state.params.info
+        fetch(recommendUrlWithId(info.id))
             .then((response) => response.json())
             .then((json) => {
                 console.log(JSON.stringify(json));

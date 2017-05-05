@@ -1,7 +1,5 @@
 # 美团客户端
 
-**支持: Android 4.1 (API 16)+   IOS(8.0+)**
-
 Github：https://github.com/huanxsd/MeiTuan
 
 简书：http://www.jianshu.com/p/9211f42d5c25
@@ -26,7 +24,7 @@ Github：https://github.com/huanxsd/MeiTuan
 
 这是一个用React-Native写的美团客户端。
 
-使用了React-Native 0.42版本。遵循ES6语法。
+使用了React-Native 0.44.0版本。遵循ES6语法。
 
 主要实现了美团的四个一级页面（团购、附近、订单、我的），以及部分二级页面（团购详情、Web页面）。
 
@@ -46,13 +44,13 @@ Redux的作者 Dan Abramov 说过：
 
 哦，另外一个没有用Redux的原因，是我还不太会用。
 
-App的页面跳转、TabBar、Navigation，全部通过第三方的库[react-native-router-flux](https://github.com/aksonov/react-native-router-flux)实现。这是一个非常牛逼的库，可以实现很多自定义的跳转功能。
+App的页面跳转、TabBar、Navigation，全部通过[react-navigation](https://github.com/react-community/react-navigation)实现。这是一个非常牛逼的库，可以实现很多自定义的跳转功能。最早是通过[react-native-router-flux](https://github.com/aksonov/react-native-router-flux)实现跳转。在遇见react-navigation后，我果断放弃了react-native-router-flux。
 
 App中很多页面都使用了同一个网络接口，这不是为了让代码更加简洁，仅仅是我偷懒 >.<
 
 ## 第三方依赖
 
-* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
+* [react-navigation](https://github.com/react-community/react-navigation)
 * [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
 
 ## 安装
@@ -102,6 +100,8 @@ Github：https://github.com/huanxsd/MeiTuan
 
 我将持续更新这个Demo
 
+福州地区的朋友欢迎联系我
+QQ：67111677
 
 ---
 
@@ -145,7 +145,7 @@ $ react-native start
 
 ## Dependency
 
-* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
+* [react-navigation](https://github.com/react-community/react-navigation)
 * [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
 
 ## Contact

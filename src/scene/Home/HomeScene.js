@@ -9,7 +9,6 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
 import SpacingView from '../../widget/SpacingView'
 import RefreshListView, { RefreshState } from '../../widget/RefreshListView'
@@ -18,6 +17,7 @@ import color from '../../widget/color'
 import NavigationItem from '../../widget/NavigationItem'
 import SearchBar from '../../widget/SearchBar'
 import Button from '../../widget/Button'
+import TabBarItem from '../../widget/TabBarItem'
 
 import screen from '../../common/screen'
 import system from '../../common/system'
@@ -30,26 +30,23 @@ import GroupPurchaseCell from '../GroupPurchase/GroupPurchaseCell'
 
 // create a component
 class HomeScene extends Component {
-    static renderRightButton = () => {
-        return (
+
+    static navigationOptions = ({ navigation }) => ({
+        headerTitle: (
+            <TouchableOpacity style={styles.searchBar}>
+                <Image source={require('../../img/Home/search_icon.png')} style={styles.searchIcon} />
+                <Paragraph>一点点</Paragraph>
+            </TouchableOpacity>
+        ),
+        headerRight: (
             <NavigationItem
                 icon={require('../../img/Home/icon_navigationItem_message_white@2x.png')}
                 onPress={() => {
 
                 }}
             />
-        );
-    }
-    static renderTitle = () => {
-        return (
-            <TouchableOpacity style={styles.searchBar}>
-                <Image source={require('../../img/Home/search_icon.png')} style={styles.searchIcon} />
-                <Paragraph>一点点</Paragraph>
-            </TouchableOpacity>
-        );
-    }
-    static renderLeftButton = () => {
-        return (
+        ),
+        headerLeft: (
             <NavigationItem
                 title='福州'
                 titleStyle={{ color: 'white' }}
@@ -57,8 +54,18 @@ class HomeScene extends Component {
 
                 }}
             />
-        );
-    }
+        ),
+        headerStyle: { backgroundColor: color.theme },
+        tabBarLabel: '团购',
+        tabBarIcon: ({ focused, tintColor }) => (
+            <TabBarItem
+                tintColor={tintColor}
+                focused={focused}
+                normalImage={require('../../img/tabbar/pfb_tabbar_homepage@2x.png')}
+                selectedImage={require('../../img/tabbar/pfb_tabbar_homepage_selected@2x.png')}
+            />
+        ),
+    });
 
     state: {
         discounts: Array<Object>,
@@ -97,7 +104,7 @@ class HomeScene extends Component {
                             info={rowData}
                             onPress={() => {
                                 StatusBar.setBarStyle('default', false)
-                                Actions.groupPurchase({ info: rowData })
+                                this.props.navigation.navigate('GroupPurchase', { info: rowData })
                             }}
                         />
                     }
@@ -133,7 +140,7 @@ class HomeScene extends Component {
 
             let location = discount.tplurl.indexOf('http')
             let url = discount.tplurl.slice(location)
-            Actions.web({ url: url })
+            this.props.navigation.navigate('Web', { url: url })
         }
     }
 
@@ -213,7 +220,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
         alignSelf: 'center',
-        marginTop: system.isIOS ? 25 : 13,
     },
     searchIcon: {
         width: 20,
